@@ -1,0 +1,51 @@
+# Social Determinants of Health Analyzer
+# This program gives a simple SDH risk estimate for a neighborhood
+
+def calculate_sdh_risk(grocery_stores, parks, bus_routes, median_income):
+    score = 0
+
+    # Simple scoring: more resources = lower score, less income = higher score
+    if grocery_stores < 2:
+        score += 2
+    elif grocery_stores < 5:
+        score += 1
+
+    if parks < 1:
+        score += 2
+    elif parks < 3:
+        score += 1
+
+    if bus_routes < 2:
+        score += 2
+    elif bus_routes < 5:
+        score += 1
+
+    if median_income < 40000:
+        score += 2
+    elif median_income < 70000:
+        score += 1
+
+    # Assign risk level
+    if score <= 2:
+        return "Low SDH risk", "Good access to housing, food, transportation, and recreation."
+    elif score <= 5:
+        return "Medium SDH risk", "Some challenges with access to housing, food, transportation, or recreation."
+    else:
+        return "High SDH risk", "Significant challenges with housing, food, transportation, or recreation."
+
+def main():
+    print("Welcome to the Social Determinants of Health (SDH) Analyzer!\n")
+    
+    zip_code = input("Enter ZIP code of neighborhood: ")
+    grocery_stores = int(input("Number of grocery stores nearby: "))
+    parks = int(input("Number of parks nearby: "))
+    bus_routes = int(input("Number of bus routes: "))
+    median_income = int(input("Median income of the area (in dollars): "))
+    
+    risk_level, explanation = calculate_sdh_risk(grocery_stores, parks, bus_routes, median_income)
+    
+    print(f"\nNeighborhood {zip_code} has {risk_level}")
+    print("Explanation:", explanation)
+
+if __name__ == "__main__":
+    main()
